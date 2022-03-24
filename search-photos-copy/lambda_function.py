@@ -48,7 +48,7 @@ def search_OpenSearch(keywords):
         query = {
           "query": {
             "bool" : {
-              "should": [
+              "must": [
                 { "term": { "labels": keywords[0] }},
                 { "term": { "labels": keywords[1] }},
               ]
