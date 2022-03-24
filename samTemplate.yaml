@@ -5,28 +5,28 @@ Resources:
   CDDemoLambda1:
     Type: "AWS::Serverless::Function"
     Properties:
-      FunctionName: search-photos-2
+      FunctionName: search-photos-lambda
       Handler: lambda_function.lambda_handler
       Runtime: python3.6
       CodeUri: ./search-photos-copy
       Description: "Lambda function for CD Demo"
       MemorySize: 128
       Timeout: 30
-      Role: "arn:aws:iam::625543281468:role/admin-lambda-role"
+      Role: "arn:aws:iam::464433889780:role/cloudformationrole"
       Environment:
         Variables:
           REGION: us-east-1
   CDDemoLambda2:
     Type: "AWS::Serverless::Function"
     Properties:
-      FunctionName: index-photos-2
+      FunctionName: index-photos-lambda
       Handler: lambda_function.lambda_handler
       Runtime: python3.6
       CodeUri: ./index-photos-copy
       Description: "Lambda function for CD Demo"
       MemorySize: 128
       Timeout: 30
-      Role: "arn:aws:iam::625543281468:role/admin-lambda-role"
+      Role: "arn:aws:iam::464433889780:role/cloudformationrole"
       Environment:
         Variables:
           REGION: us-east-1
