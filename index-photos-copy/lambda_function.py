@@ -68,7 +68,34 @@ def lambda_handler(event, context):
     # time = "2011-11-04T00:05:23"
     # customLabels = ["cus1","cus2"]
     
-    customLabels = [x.lower() for x in customLabels]
+    
+    SINGULAR_UNINFLECTED = ['gas', 'asbestos', 'womens', 'childrens', 'sales', 'physics']
+
+    SINGULAR_SUFFIX = [
+        ('people', 'person'),
+        ('men', 'man'),
+        ('wives', 'wife'),
+        ('menus', 'menu'),
+        ('us', 'us'),
+        ('ss', 'ss'),
+        ('is', 'is'),
+        ("'s", "'s"),
+        ('ies', 'y'),
+        ('ies', 'y'),
+        ('hes', 'h'),
+        ('es', 'e'),
+        ('s', '')
+    ]
+    def singularize_word(word):
+        for ending in SINGULAR_UNINFLECTED:
+            if word.lower().endswith(ending):
+                return word
+        for suffix, singular_suffix in SINGULAR_SUFFIX:
+            if word.endswith(suffix):
+                return word[:-len(suffix)] + singular_suffix
+        return word
+    
+    customLabels = [singularize_word(x).lower() for x in customLabels]
     
     print("customLabels: ", customLabels)
     

@@ -23,7 +23,36 @@ def lex2_disambiguate(send_message):
     msg_from_lex = content.split(", ")
     keywork_list = [x.strip().lower() for x in msg_from_lex]
     
-    return keywork_list
+    
+    SINGULAR_UNINFLECTED = ['gas', 'asbestos', 'womens', 'childrens', 'sales', 'physics']
+
+    SINGULAR_SUFFIX = [
+        ('people', 'person'),
+        ('men', 'man'),
+        ('wives', 'wife'),
+        ('menus', 'menu'),
+        ('us', 'us'),
+        ('ss', 'ss'),
+        ('is', 'is'),
+        ("'s", "'s"),
+        ('ies', 'y'),
+        ('ies', 'y'),
+        ('hes', 'h'),
+        ('es', 'e'),
+        ('s', '')
+    ]
+    def singularize_word(word):
+        for ending in SINGULAR_UNINFLECTED:
+            if word.lower().endswith(ending):
+                return word
+        for suffix, singular_suffix in SINGULAR_SUFFIX:
+            if word.endswith(suffix):
+                return word[:-len(suffix)] + singular_suffix
+        return word
+    
+    keywork_list1 = [singularize_word(x) for x in keywork_list]
+
+    return keywork_list1
     
 
 def search_OpenSearch(keywords):
@@ -36,6 +65,7 @@ def search_OpenSearch(keywords):
     # Note that certain fields are boosted (^).
     query = {}
     if len(keywords) == 1:
+        keywords[0] = keywords[0].lower()
         query = {
             "size": 100,
             "query": {
