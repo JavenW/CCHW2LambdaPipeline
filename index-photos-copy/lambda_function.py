@@ -11,7 +11,8 @@ def detect_rekog_labels(photo, bucket):
     response = client.detect_labels(Image={'S3Object':{'Bucket':bucket,'Name':photo}},
         MaxLabels=10, MinConfidence=60)
 
-    print('Detected labels for ' + photo) 
+    print('Detected labels for ' + photo)
+    print("abc")
     labels = []
     for label in response['Labels']:
         labels.append(label['Name'])
